@@ -1,0 +1,7 @@
+<h1><%= @topic.title%></h1>
+
+<%= form_for @topic , :url => topic_path(@topic) , :method => :patch do |f| %>
+
+<%= render :partial => "form" , :locals => { :f => f }%>	
+<%= f. submit :submit_name%>
+<% end %>

@@ -1,0 +1,21 @@
+<h1>Topics List</h1>
+
+
+<div class="container">
+	<div class="row">
+		<div class="col-sm-12">
+			<table class="table">
+				<tr><% @topics.each do |topic| %></tr>
+				<td><%= topic.title%></td>
+				
+				<td>
+					<%= link_to "show" , topic_path(topic) , :class => "btn btn-success"%>
+					<%= link_to "edit" , edit_topic_path(topic) , :class => "btn btn-primary"%>
+					<%= link_to "Delete" , topic_path(topic) , :method => :delete , :class => "btn btn-danger"%>
+				</td>
+				<% end %>
+			</table>
+		</div>
+					<%= link_to "Post Topic" , new_topic_path %>
+	</div>
+</div>

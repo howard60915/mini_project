@@ -1,0 +1,12 @@
+<h1>Post Topic</h1>
+
+<%= form_for @topic , :url => topics_path do |f|%>
+
+
+<%= render :partial => "form" , :locals => { :f => f} %>
+
+
+
+<%= f.submit :submit_name %>
+
+<% end %>	

@@ -15,10 +15,22 @@
 			<div class="col-sm-12">
 				<div class="notice"><span style="color: green"><%= flash[:notice] %></span></div>
 				<div class="alert"><span style="color: red"><%= flash[:alert] %></span></div>	
+			
+				 <% if current_user %>
+				    <%= link_to('登出', destroy_user_session_path, :method => :delete) %> |
+				    <%= link_to('修改密碼', edit_registration_path(:user)) %>
+				  <% else %>
+				    <%= link_to('註冊', new_registration_path(:user)) %> |
+				    <%= link_to('登入', new_session_path(:user)) %>
+				 <% end %>
+
+
+				<%= yield %>
+
 			</div>
 		</div>
 	</div>
 
-    <%= yield %>
+    
   </body>
 </html>
