@@ -8,6 +8,17 @@
   </head>
 
   <body>
+
+
+	<div class="container">
+		<div class="row">
+			<div class="col-sm-12">
+				<div class="notice"><span style="color: green"><%= flash[:notice] %></span></div>
+				<div class="alert"><span style="color: red"><%= flash[:alert] %></span></div>	
+			</div>
+		</div>
+	</div>
+
     <%= yield %>
   </body>
 </html>
