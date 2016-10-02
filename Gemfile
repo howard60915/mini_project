@@ -18,6 +18,7 @@ gem 'coffee-rails', '~> 4.2'
 gem 'bootstrap-sass', '~> 3.3.4'
 
 gem 'kaminari'
+gem 'bootstrap-kaminari-views'
 
 gem 'faker'
 

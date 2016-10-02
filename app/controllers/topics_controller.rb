@@ -1,8 +1,16 @@
 class TopicsController < ApplicationController
+	
+
 	before_action :set_topic , :only => [:show, :edit , :update, :destroy]
 	
 	def index
-		@topics = Topic.all
+		@topics = Topic.page(params[:page]).per(5)
+		@user = current_user
+		if params[:id]
+			@topic = Topic.find(params[:id])
+		else
+			@topic = Topic.new
+		end	
 	end
 
 	def show
@@ -10,12 +18,11 @@ class TopicsController < ApplicationController
 	end
 
 	def new
-		@topic = Topic.new
+		@topic = current_user.topics.new
 	end
 
 	def create
-		@topic = Topic.new(topic_params)
-		@topic.user = current_user
+		@topic = current_user.topics.new(topic_params)
 		if @topic.save
 		   redirect_to topics_path
 		else 
@@ -27,11 +34,12 @@ class TopicsController < ApplicationController
 	end
 
 	def update
-		@user = current_user
-		if @topic.update(topic_params)
+		
+		@topics = Topic.page(params[:page]).per(5)
+		if current_user.topics.update(topic_params)
 			redirect_to topic_path(@topic)
 		else
-			render :action => :edit
+			render :action => :index
 		end		
 	end
 
