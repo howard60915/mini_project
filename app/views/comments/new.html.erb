@@ -1,0 +1,9 @@
+<h1>Comment</h1>
+
+<%= form_for @comment ,:url => topic_comments_path(@topic) do |f|%>
+  <%= f.label :content, "Comment"%>
+  <%= f.text_area :content ,:class => "form-control"%>	
+
+  <%= f.submit "confirm"%>
+
+  <% end %>

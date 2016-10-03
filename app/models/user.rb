@@ -4,6 +4,7 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
   has_many :topics
+  has_many :comments
 
   def short_name
 	self.email.split("@").first        	

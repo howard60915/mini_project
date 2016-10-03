@@ -15,6 +15,11 @@ class TopicsController < ApplicationController
 
 	def show
 		@topic = Topic.find(params[:id])
+		if params[:comment_id]
+			@comment = @topic.comments.find(params[:comment_id])
+		else
+			@comment = @topic.comments.build
+		end	
 	end
 
 	def new
@@ -58,7 +63,7 @@ class TopicsController < ApplicationController
 	end
 
 	def topic_params
-		params.require(:topic).permit(:title, :content ,:user_id)
+		params.require(:topic).permit(:title, :content ,:user_id, :comment_id)
 	end
 
 end
