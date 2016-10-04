@@ -4,4 +4,5 @@ class Topic < ApplicationRecord
 	has_many :comments
 
 	delegate :email, :to => :user , :prefix => true, :allow_nil => true
+	delegate :content, :to => :comment , :prefix => true, :allow_nil => true
 end

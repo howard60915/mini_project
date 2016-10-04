@@ -14,7 +14,8 @@
 			<table class="table">
 				<td>Topic</td>
 				<td>Poster</td>
-				<td></td>
+				<td></td>	
+				<td>回覆數</td>
 
 				<tr><% @topics.each do |topic| %></tr>
 				<td>
@@ -26,7 +27,7 @@
 					<%= link_to "edit" , topics_path(:id => topic.id) , :class => "btn btn-primary"%>
 					<%= link_to "Delete" , topic_path(topic) , :method => :delete , :class => "btn btn-danger"%>
 				</td>
-				<td></td>
+				<td><%= topic.comments.count %></td>
 				<% end %>
 			</table>
 		</div>

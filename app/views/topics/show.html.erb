@@ -5,13 +5,24 @@
 	<td><span style="font-size: 20px"><%= @topic.content %></span></td>
 		<tr>
 			<td><span style="font-size: 20px">Comment :</span></td>
+			<td ><span style="text-align: left">Poster</span></td>
+			
+			
 		</tr>
-		<%@topic.comments.each do |c| %>
-	<tr><td> <%= c.content %></td></tr>
+
+		<% @topic.comments.each do |c| %>
+		<tr>
+			<td><%= c.content %></td>
+			<td><%= c.user.email %></td>
+		</tr>
 		<% end %>
 		
 </table>
-
+<%#if @topic.comments.errors.any?%>
+	<%# @topic.comments.errors.full_messages.each do |msg|%>
+	<%#= msg%>
+	<%# end %>
+<%# end %>
 
 
 <%= form_for @comment , :url => topic_comments_path(@topic) do |f|%>

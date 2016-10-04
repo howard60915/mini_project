@@ -14,11 +14,11 @@ class TopicsController < ApplicationController
 	end
 
 	def show
-		@topic = Topic.find(params[:id])
-		if params[:comment_id]
+		
+		if params[:id] && params[:comment_id]
 			@comment = @topic.comments.find(params[:comment_id])
 		else
-			@comment = @topic.comments.build
+			@comment = Comment.new
 		end	
 	end
 

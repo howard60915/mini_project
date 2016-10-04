@@ -2,22 +2,21 @@ class CommentsController < ApplicationController
 	before_action :set_comment
 	
 
-	def index
-		@comments = @topic.comment.all
-	end
-
-	def show
-		@comment = @topic.comment.find(params[:id])
-	end	
-
-	def new
-		@comment = @topic.comment.build
-	end
-
 	def create
-		@comment = @topic.comment.build(comment_params)
-		@comment.save
+		#wqeq
+		@comment = @topic.comments.build(comment_params)
+		@comment.user_id = current_user.id
+		if @comment.save
+			flash[:notice] = "success to create"
+			redirect_to topic_path(params[:topic_id])
+		else
+			@comment = @topic.comments.build
+			flash[:alert] = "failed to create"
+			redirect_to topic_path(params[:topic_id])
+		end
 	end
+
+
 
 
 
@@ -32,6 +31,6 @@ class CommentsController < ApplicationController
 	end
 
 	def comment_params
-		params.require(:comment).permit(:content, :topic_id, :user_id)
+		params.require(:comment).permit(:content, :topic_id, :user_id,:id)
 	end
 end
