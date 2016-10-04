@@ -14,7 +14,7 @@ class TopicsController < ApplicationController
 	end
 
 	def show
-		
+		@user = current_user
 		if params[:id] && params[:comment_id]
 			@comment = @topic.comments.find(params[:comment_id])
 		else

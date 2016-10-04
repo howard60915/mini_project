@@ -1,0 +1,2 @@
+class TopicCategoryship < ApplicationRecord
+end

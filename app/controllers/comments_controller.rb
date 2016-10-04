@@ -3,7 +3,6 @@ class CommentsController < ApplicationController
 	
 
 	def create
-		#wqeq
 		@comment = @topic.comments.build(comment_params)
 		@comment.user_id = current_user.id
 		if @comment.save
@@ -15,6 +14,12 @@ class CommentsController < ApplicationController
 			redirect_to topic_path(params[:topic_id])
 		end
 	end
+	
+	def destroy
+		@comment = @topic.comments.build(comment_params)
+		@comment.destroy
+		redirect_to topic_comments_path(@topic)
+	end	
 
 
 
