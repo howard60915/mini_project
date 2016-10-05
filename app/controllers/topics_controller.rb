@@ -4,8 +4,27 @@ class TopicsController < ApplicationController
 	before_action :set_topic , :only => [:show, :edit , :update, :destroy]
 	
 	def index
-		@topics = Topic.page(params[:page]).per(5)
+		
 		@user = current_user
+
+		if params[:keyword]
+			@topics = Topic.where( [ "title like ?", "%#{params[:keyword]}%" ] )
+		else
+			@topics = Topic.all
+		end
+		
+		if params[:order]
+			sort_by = (params[:order] == 'title') ? 'title' : 'id'
+			@topics = @topics.order(sort_by)	
+		elsif params[:comment_time]
+			@topics = @topics.order("created_at DESC")
+		elsif params[:comment_numbers]
+			@topics = @topics.order("comments_count DESC")	
+		end	
+		@topics = @topics.page(params[:page]).per(5)
+
+		
+
 		if params[:id]
 			@topic = Topic.find(params[:id])
 		else
@@ -64,7 +83,7 @@ class TopicsController < ApplicationController
 	end
 
 	def topic_params
-		params.require(:topic).permit(:title, :content ,:user_id, :comment_id)
+		params.require(:topic).permit(:title, :content ,:user_id, :comment_id, :category_ids =>[])
 	end
 
 end

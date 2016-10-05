@@ -9,7 +9,12 @@
 <%= render :partial => "form" , :locals => { :f => f}%>
 
 <%= f.submit "Confirm", :class => "btn btn-success"%>
-<%= f.submit "Cancel" , :class => "btn btn-warning"%>
+<%#= f.submit "Cancel" , :class => "btn btn-warning"%>
+<% end %>
+<br \>
+<%= form_tag topics_path, :method => :get do %>
+  <%= text_field_tag "keyword" %>
+  <%= submit_tag "Search" %>
 <% end %>
 
 <br \>
@@ -17,24 +22,29 @@
 	<div class="row">
 		<div class="col-sm-12">
 			<table class="table">
-				<td>Topic</td>
+				<td><%= link_to "Topic" , topics_path(:order => "title")%></td>
 				<td>Poster</td>
-				<td></td>	
-				<td>回覆數</td>
-				<td>最新回覆時間</td>
+				<td><%= link_to "回覆數" , topics_path(:comment_numbers => "comments_number")%></td>
+				<td><%= link_to "最新回覆時間" ,topics_path(:comment_time => "comments_at")%></td>
+				<td></td>
 
 				<tr><% @topics.each do |topic| %></tr>
 				<td>
 					<span style="font-size: 20px"><%= link_to topic.title, topic_path(topic) %></span>
 				</td>
 				<td><%= topic.user.try(:short_name) %></td>				
+				
+				<td><%= topic.comments_count %></td>
+				<td>
+					<% if topic.comments.last %>
+					<%= topic.comments.last.created_at %>
+					<% end %>
+				</td>
 				<td>
 					<%#= link_to "show" , topic_path(topic) , :class => "btn btn-success"%>
 					<%= link_to "edit" , topics_path(:id => topic.id) , :class => "btn btn-primary"%>
 					<%= link_to "Delete" , topic_path(topic) , :method => :delete , :class => "btn btn-danger"%>
 				</td>
-				<td><%= topic.comments.count %></td>
-				<td><%= topic.comments.last.created_at %></td>
 				<% end %>
 			</table>
 		</div>
