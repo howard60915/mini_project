@@ -14,7 +14,6 @@ class CommentsController < ApplicationController
 			redirect_to topic_path(params[:topic_id])
 		end
 	end
-	
 	def destroy
 		@comment = @topic.comments.build(comment_params)
 		@comment.destroy

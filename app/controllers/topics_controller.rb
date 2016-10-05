@@ -15,11 +15,32 @@ class TopicsController < ApplicationController
 		
 		if params[:order]
 			sort_by = (params[:order] == 'title') ? 'title' : 'id'
-			@topics = @topics.order(sort_by)	
-		elsif params[:comment_time]
+			@topics = @topics.order(sort_by)
+
+		elsif params[:comment_time]#照回覆時間進行排序
 			@topics = @topics.order("created_at DESC")
-		elsif params[:comment_numbers]
+
+		elsif params[:comment_numbers]#照回覆數進行排序
 			@topics = @topics.order("comments_count DESC")	
+		end	
+
+		if params[:default]
+			@topics = @topics.all
+		elsif params[:infernal]
+			@category = Category.find(params[:infernal])
+			@topics = @category.topics
+		elsif params[:ocean]
+			@category = Category.find(params[:ocean])
+			@topics = @category.topics
+		elsif params[:earth]
+			@category = Category.find(params[:earth])
+			@topics = @category.topics
+		elsif params[:cloud]
+			@category = Category.find(params[:cloud])
+			@topics = @category.topics
+		elsif params[:elder]
+			@category = Category.find(params[:elder])
+			@topics = @category.topics					
 		end	
 		@topics = @topics.page(params[:page]).per(5)
 
@@ -72,6 +93,12 @@ class TopicsController < ApplicationController
 		@topic.destroy
 
 		redirect_to topics_path
+	end
+
+	def about
+		@topics = Topic.all
+		@user = current_user
+		@comments = Comment.all
 	end
 
 

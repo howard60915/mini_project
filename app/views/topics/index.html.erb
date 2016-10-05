@@ -1,4 +1,4 @@
-<h1>Topics List</h1>
+<h1>Topics List</h1> <span><%= link_to "About" , about_path , :method => :get , :class => "btn btn-info"%></span>
 <% if @topic.errors.any? %>
 	<% @topic.errors.full_messages do |msg| %>
 	<span style="font-size: 15px"><%= msg%></span>
@@ -16,6 +16,17 @@
   <%= text_field_tag "keyword" %>
   <%= submit_tag "Search" %>
 <% end %>
+<br \>
+
+<%= link_to "Default" , topics_path(:default => "ddd"), :class => "btn btn-info " , :style =>"border-radius: 50%"%>
+<%= link_to "Infernal" , topics_path(:infernal => "1"), :class => "btn btn-primary " , :style =>"border-radius: 50%"%>
+<%= link_to "Ocean" , topics_path(:ocean => "2"), :class => "btn btn-primary " , :style =>"border-radius: 50%"%>
+<%= link_to "Earth" , topics_path(:earth => "3"), :class => "btn btn-primary " , :style =>"border-radius: 50%"%>
+<%= link_to "Cloud" , topics_path(:cloud => "4"), :class => "btn btn-primary " , :style =>"border-radius: 50%"%>
+<%= link_to "Elder" , topics_path(:elder => "5"), :class => "btn btn-primary " , :style =>"border-radius: 50%"%>
+
+
+
 
 <br \>
 <div class="container">

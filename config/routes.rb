@@ -6,6 +6,6 @@ Rails.application.routes.draw do
   	resources :comments, :controller => :comments
   end	
   
-  
+  get '/about' => 'topics#about', :as => "about"
   root :to => 'topics#index'
 end
