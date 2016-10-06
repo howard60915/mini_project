@@ -47,8 +47,10 @@
 				
 				<td><%= topic.comments_count %></td>
 				<td>
-					<% if topic.comments.last %>
-					<%= topic.comments.last.created_at %>
+					<% if topic.comments.last && params[:comment_time] %>
+						<%= topic.comments.first.created_at %>
+					<%else%>
+						<%= topic.comments.last.created_at%>
 					<% end %>
 				</td>
 				<td>

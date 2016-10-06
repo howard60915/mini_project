@@ -2,10 +2,12 @@ class TopicsController < ApplicationController
 	
 
 	before_action :set_topic , :only => [:show, :edit , :update, :destroy]
+
 	
 	def index
 		
 		@user = current_user
+
 
 		if params[:keyword]
 			@topics = Topic.where( [ "title like ?", "%#{params[:keyword]}%" ] )
@@ -18,7 +20,7 @@ class TopicsController < ApplicationController
 			@topics = @topics.order(sort_by)
 
 		elsif params[:comment_time]#照回覆時間進行排序
-			@topics = @topics.order("created_at DESC")
+			@topics = @topics.includes(:comments).order("comments.created_at DESC")
 
 		elsif params[:comment_numbers]#照回覆數進行排序
 			@topics = @topics.order("comments_count DESC")	
