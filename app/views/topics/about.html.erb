@@ -7,4 +7,9 @@
 <br \>
 <div style="font-size: 30px">and <%= @comments.all.count%>   comments</div>
  
+<% if current_user %>
 <div> and  <%= @user.short_name %> have <%=@user.comments.count   %>  comments</div>
+<% end %>
+
+
+<%= link_to "Back to Index" , topics_path , :class => "btn btn-primary"%>
