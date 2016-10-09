@@ -10,6 +10,8 @@
 
   <body>
 
+
+
 	<div class="container">
 		<div class="row">
 			<div class="col-sm-12">
@@ -28,7 +30,11 @@
 				
 				
 				<% if current_user %>
-					Hi ,<%= link_to current_user.email , profile_path %>
+					<% if current_user.profile %>
+						Hi ,<%= link_to current_user.email , edit_user_profile_path(current_user) %>
+					<% else %>
+						Hi ,<%= link_to current_user.email , new_user_profile_path(current_user) %>
+					<% end  %>
 				    <%= link_to('登出', destroy_user_session_path, :method => :delete) %> |
 				    <%= link_to('修改密碼', edit_registration_path(:user)) %> 
 				  <% else %>

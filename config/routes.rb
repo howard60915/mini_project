@@ -5,8 +5,10 @@ Rails.application.routes.draw do
 
   resources :topics do 
   	resources :comments, :controller => :comments
-  end	
-  resource :profile
+  end
+  resources :users do 	
+  	resource :profile , :controller => :profiles
+  end
   get '/about' => 'topics#about', :as => "about"
   root :to => 'topics#index'
 end

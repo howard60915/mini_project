@@ -6,18 +6,24 @@
 <table class="table">
 	
 
-	<td>Nickname : <%= @profile.nickname %></td>
+	<td>Nickname : <%= @profile.try(:nickname) %></td>
 	<tr></tr>
 	<td>Biography</td>
 	<tr></tr>
-	<td><%= @profile.bio%></td>
-	<tr></tr>
-	<td><span style="font-size: 20px "><%= @profile.nickname %> 的文章</span></td>
-	<tr><% @profile.user.topics.each do |pro|%></tr>
+	<td><%= @profile.try(:bio) %></td>
+	<tr><%= link_to "編輯個人資料" , edit_user_profile_path(@user) , :class => "btn btn-info" %></tr>
+	<td><span style="font-size: 20px "><%= @profile.try(:nickname) %> 的文章</span></td>
+	<td>回覆數量</td>
+	<tr><% @user.topics.each do |t|%></tr>
 	
 	
-	<td><%= pro.title %></td>
+	<td><%= t.title %></td>
+	<td><%= t.comments.count %></td>
 		<% end %>
 	
 		
 </table>
+
+
+<%= link_to "Back to Topics" ,topics_path , :class => "btn btn-info"%>
+

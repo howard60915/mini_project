@@ -1,0 +1,18 @@
+<h1><%= current_user.short_name%>的個人檔案</h1>
+
+<div><img src="https://api.fnkr.net/testimg/350x200/00CED1/FFF/?text=img+placeholder"></div>
+
+
+<%= form_for @profile , :url => user_profile_path(@user) , :method => :patch do |f| %>
+
+<%=f.label :nickname , "nickname"%>
+<%=f.text_field :nickname, :class => "form-control"  %>
+<br \>
+<%=f.label :bio, "Biography"%>
+<%=f.text_area :bio, :class => "form-control"  %>
+<br>
+<%= f.submit "儲存設定" , :class => "btn btn-success"%>
+
+<% end %>
+
+<%= link_to "Back to Profile" , edit_user_profile_path(@user) , :class => "btn btn-info"%>
