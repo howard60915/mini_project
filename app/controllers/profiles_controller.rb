@@ -3,6 +3,8 @@ class ProfilesController < ApplicationController
 		before_action :authenticate_user!, :except => [:show]
 		def show
 			@profile = @user.profile
+			@profiletopics = @user.topics.page(params[:page]).per(10)
+			
 		end
 
 		def new
@@ -33,7 +35,6 @@ class ProfilesController < ApplicationController
 				render :action => :edit
 			end	
 		end
-
 
 
 

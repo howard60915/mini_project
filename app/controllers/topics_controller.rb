@@ -44,7 +44,7 @@ class TopicsController < ApplicationController
 			@category = Category.find(params[:elder])
 			@topics = @category.topics					
 		end	
-		@topics = @topics.page(params[:page]).per(5)
+		@topics = @topics.page(params[:page]).per(5).padding(3)
 
 		
 
