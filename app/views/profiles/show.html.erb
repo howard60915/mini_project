@@ -3,27 +3,33 @@
 <div><img src="https://api.fnkr.net/testimg/350x200/00CED1/FFF/?text=img+placeholder"></div>
 
 
-<table class="table">
+<table class="table table-striped">
 	
 
-	<td>Nickname : <%= @profile.try(:nickname) %></td>
+		<th><span style="font-size: 35px">Nickname :     <%= @profile.try(:nickname) %></span></th>
+		<tbody>
 	<tr></tr>
-	<td>Biography</td>
+		<td><span style="font-size: 25px">Biography</span></td>
 	<tr></tr>
-	<td><%= @profile.try(:bio) %></td>
+		<td><%= @profile.try(:bio) %></td>
 	<tr><%= link_to "編輯個人資料" , edit_user_profile_path(@user) , :class => "btn btn-info" %></tr>
-	<td><span style="font-size: 20px "><%= @profile.try(:nickname) %> 的文章</span></td>
-	<td>回覆數量</td>
-	<tr><% @user.topics.each do |t|%></tr>
-	
-	
-	<td><%= t.title %></td>
-	<td><%= t.comments.count %></td>
+		<td><span style="font-size: 20px "><%= @profile.try(:nickname) %> 的文章</span></td>
+		<td>回覆數量</td>
+		<td>Comments</td>
+		<td>回覆主題</td>
+	<tr><% @profiletopics.each do |t|%></tr>
+		<td><%= t.title %></td>
+		<td><%= t.comments.count %></td>	
+			<% t.comments.each do |c|  %>
+			<td><%#= c.content %></td>
+			<td><%= %></td>
+			<% end %>
 		<% end %>
-	
+	</tbody>
 		
 </table>
 
 
 <%= link_to "Back to Topics" ,topics_path , :class => "btn btn-info"%>
 
+<div><%= paginate @profiletopics , :theme => 'twitter-bootstrap-3' %></div>
