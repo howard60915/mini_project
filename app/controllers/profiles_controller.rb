@@ -3,8 +3,8 @@ class ProfilesController < ApplicationController
 		before_action :authenticate_user!, :except => [:show]
 		def show
 			@profile = @user.profile
-			@profiletopics = @user.topics.page(params[:page]).per(10)
-			@profilecomment = @user.comments.page(params[:page]).per(10)
+			@profiletopics = @user.topics.page(params[:page_topic]).per(10)
+			@profilecomment = @user.comments.page(params[:page_comment]).per(10)
 		end
 
 		def new

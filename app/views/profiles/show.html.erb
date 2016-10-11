@@ -25,7 +25,7 @@
 		
 </table>
 
-<div><%= paginate @profiletopics , :theme => 'twitter-bootstrap-3' %></div>
+<div><%= paginate @profiletopics , :theme => 'twitter-bootstrap-3', :param_name => "page_topic" %></div>
 
 
 <table class="table table-striped">
@@ -39,4 +39,4 @@
 
 </table>
 
-<div><%= paginate @profilecomment , :theme => 'twitter-bootstrap-3' %></div>
+<div><%= paginate @profilecomment , :theme => 'twitter-bootstrap-3', :param_name => "page_comment" %></div>
