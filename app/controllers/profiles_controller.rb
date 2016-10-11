@@ -4,7 +4,7 @@ class ProfilesController < ApplicationController
 		def show
 			@profile = @user.profile
 			@profiletopics = @user.topics.page(params[:page]).per(10)
-			
+			@profilecomment = @user.comments.page(params[:page]).per(10)
 		end
 
 		def new
@@ -40,7 +40,7 @@ class ProfilesController < ApplicationController
 
 		private
 		def find_user
-			@user = current_user
+			@user = User.find(params[:user_id])
 		end
 
 		def profile_params
