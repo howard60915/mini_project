@@ -1,4 +1,4 @@
-<h1><%= current_user.short_name%>的個人檔案</h1>
+<h1><%= current_user.short_name%>的個人檔案</h1><%= link_to "Back to Topics" ,topics_path , :class => "btn btn-info"%>
 
 <div><img src="https://api.fnkr.net/testimg/350x200/00CED1/FFF/?text=img+placeholder"></div>
 
@@ -15,21 +15,28 @@
 	<tr><%= link_to "編輯個人資料" , edit_user_profile_path(@user) , :class => "btn btn-info" %></tr>
 		<td><span style="font-size: 20px "><%= @profile.try(:nickname) %> 的文章</span></td>
 		<td>回覆數量</td>
-		<td>Comments</td>
-		<td>回覆主題</td>
 	<tr><% @profiletopics.each do |t|%></tr>
 		<td><%= t.title %></td>
-		<td><%= t.comments.count %></td>	
-			<% t.comments.each do |c|  %>
-			<td><%#= c.content %></td>
-			<td><%= %></td>
-			<% end %>
+		<td><%= t.comments.count %></td>
+		<td></td>
+			<td></td>	
 		<% end %>
 	</tbody>
 		
 </table>
 
-
-<%= link_to "Back to Topics" ,topics_path , :class => "btn btn-info"%>
-
 <div><%= paginate @profiletopics , :theme => 'twitter-bootstrap-3' %></div>
+
+
+<table class="table table-striped">
+	<th><%= @profiie.try(:nickname) %> 的回覆文章</th>
+	<td>回覆文章</td>
+	<tr><% @profilecomment.each do |c| %></tr>
+	<td><%= c.content %></td>
+	<td><%= c.topic.title %></td>		
+	<% end %>
+
+
+</table>
+
+<div><%= paginate @profilecomment , :theme => 'twitter-bootstrap-3' %></div>
