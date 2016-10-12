@@ -6,13 +6,16 @@
 		<tr>
 			<td><span style="font-size: 20px">Comment :</span></td>
 			<td ><span style="text-align: left">Poster</span></td>
-			
+			<td></td>
+			<td></td>
 			
 		</tr>
 
 		<% @topic.comments.each do |c| %>
 		<tr>
 			<td><%= c.content %></td>
+			<td><%= link_to "Edit" , topic_path(:id => @topic.id , :comment_id => c.id), :class => "btn btn-primary" %></td>
+			<td><%= link_to "Delete" , topic_comment_path(@topic,c.id), :method => "delete", :class => "btn btn-danger" %></td>
 			<td><%= c.user.short_name %></td>
 		</tr>
 		<% end %>
@@ -26,7 +29,7 @@
 
 
 
-<%= form_for @comment , :url => topic_comments_path(@topic) do |f|%>
+<%= form_for [@topic, @comment] do |f|%> <!-- rails 會自動幫我們判別是經由create還是update -->
 	<%= f.label :content ,"Comment"%>
 	<%= f.text_area :content ,:class => "form-control"%>	
 

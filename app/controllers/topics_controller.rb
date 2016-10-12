@@ -1,7 +1,7 @@
 class TopicsController < ApplicationController
 	
-	
-	before_action :set_topic , :only => [:show, :edit , :update, :destroy]
+	before_action :authenticate_user!, except: [:index,:show]
+	before_action :set_topic , :only => [:edit , :destroy]
 
 	
 	def index
@@ -56,7 +56,14 @@ class TopicsController < ApplicationController
 	end
 
 	def show
-		@user = current_user
+		if current_user
+			@topic = current_user.topics.find(params[:id])
+		else
+			@topic = Topic.find(params[:id])		
+		end
+
+
+		
 		if params[:id] && params[:comment_id]
 			@comment = @topic.comments.find(params[:comment_id])
 		else
@@ -83,8 +90,9 @@ class TopicsController < ApplicationController
 
 	def update
 		
-		@topics = Topic.page(params[:page]).per(5)
-		if current_user.topics.update(topic_params)
+		@topic = current_user.topics.find(params[:id])
+
+		if @topic.update(topic_params)
 			redirect_to topic_path(@topic)
 		else
 			render :action => :index

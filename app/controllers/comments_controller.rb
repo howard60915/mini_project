@@ -14,10 +14,33 @@ class CommentsController < ApplicationController
 			redirect_to topic_path(params[:topic_id])
 		end
 	end
+
+	def edit
+		@comment = @topic.comments.find(params[:id])
+	end
+
+	def update
+		@comment = @topic.comments.find(params[:id])
+		if @comment.update(comment_params)
+			flash[:notice] = "編輯成功"
+			redirect_to topic_path(params[:topic_id])
+		else
+			flash[:alert] = "編輯失敗"
+			redirect_to topic_path(params[:topic_id])
+		end	
+	end
+
+
 	def destroy
-		@comment = @topic.comments.build(comment_params)
-		@comment.destroy
-		redirect_to topic_comments_path(@topic)
+		@user = current_user
+		@comment = @topic.comments.find(params[:id])
+		if @comment.destroy
+		   flash[:alert] = "Comment Deleted"
+		   redirect_to topic_path(@topic)
+		else
+			flash[:alert] = "Delete Failed "
+			render topic_path(@topic)
+		end	
 	end	
 
 
