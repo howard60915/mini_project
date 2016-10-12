@@ -1,4 +1,4 @@
-<h1><%= current_user.short_name%>的個人檔案</h1><%= link_to "Back to Topics" ,topics_path , :class => "btn btn-info"%>
+<h1><%= current_user.short_name%>的個人檔案</h1>
 
 <div><img src="https://api.fnkr.net/testimg/350x200/00CED1/FFF/?text=img+placeholder"></div>
 
@@ -25,9 +25,10 @@
 		
 </table>
 
-<div><%= paginate @profiletopics , :theme => 'twitter-bootstrap-3', :param_name => "page_topic" %></div>
+<div><%= paginate @profiletopics , :theme => 'twitter-bootstrap-3', :param_name => "page_topic" %></div> 
+<%= link_to "Back to Topics" ,topics_path , :class => "btn btn-info"%>
 
-
+<br \> 	
 <table class="table table-striped">
 	<th><%= @profiie.try(:nickname) %> 的回覆文章</th>
 	<td>回覆文章</td>
@@ -39,4 +40,5 @@
 
 </table>
 
-<div><%= paginate @profilecomment , :theme => 'twitter-bootstrap-3', :param_name => "page_comment" %></div>
+<div><%= paginate @profilecomment , :theme => 'twitter-bootstrap-3', :param_name => "page_comment" %></div> 
+<%= link_to "Back to Topics" ,topics_path , :class => "btn btn-info"%>
