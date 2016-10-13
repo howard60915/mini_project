@@ -4,8 +4,13 @@ class Topic < ApplicationRecord
 	has_many :comments
 	has_many :topic_categoryships
 	has_many :categories , :through => :topic_categoryships
+	has_many :likes 
+	has_many :like_users , :through => :likes , :source => :user
 	
 
 	delegate :email, :to => :user , :prefix => true, :allow_nil => true
 	delegate :content, :to => :comment , :prefix => true, :allow_nil => true
+
+
+	
 end
