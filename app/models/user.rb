@@ -6,7 +6,7 @@ class User < ApplicationRecord
   has_many :topics
   has_many :comments
   has_one :profile
-  has_many :likes
+  has_many :likes , :dependent => :destroy
   has_many :like_topics , :through => :likes , :source => :topic
 
   def short_name

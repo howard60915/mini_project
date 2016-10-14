@@ -11,12 +11,16 @@ Rails.application.routes.draw do
       end  
   end
   resources :users do 	
-  	resource :profile , :controller => :profiles
-
+  	resource :profile , :controller => :profiles do 
+      collection do 
+        get :likes
+      end
+    end
   end
 
+
   resource :profile , :controller => :profiles
-     
+  
   get '/about' => 'topics#about', :as => "about"
   root :to => 'topics#index'
 end

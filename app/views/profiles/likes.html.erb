@@ -1,0 +1,31 @@
+<h1><%= @user.short_name%>的個人檔案</h1>
+
+<div><img src="https://api.fnkr.net/testimg/350x200/00CED1/FFF/?text=img+placeholder"></div>
+
+
+<table class="table table-striped">
+	
+
+		<th><span style="font-size: 35px">Nickname :     <%= @profile.try(:nickname) %></span></th>
+		<tbody>
+	<tr></tr>
+		<td><span style="font-size: 25px">Biography</span></td>
+	<tr></tr>
+		<td><%= @profile.try(:bio) %></td>
+	<tr>
+		<%= link_to "編輯個人資料" , edit_user_profile_path(@user) , :class => "btn btn-info" %>
+		<%= link_to "個人資料" , user_profile_path(@user) , :class => "btn btn-info" %>
+	</tr>
+		<td><span style="font-size: 20px "><%= @profile.try(:nickname) %> 喜歡的文章</span></td>
+		<td>瀏覽人數</td>
+	<tr><% @user.like_topics.each do |liketopic| %></tr>
+		<td><%=  liketopic.title %></td>
+		<td><%=  liketopic.views %></td>
+		<td></td>
+		<td></td>
+		<% end %>	
+		
+	</tbody>
+		
+</table>
+

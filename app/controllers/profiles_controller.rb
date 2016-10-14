@@ -1,6 +1,7 @@
 class ProfilesController < ApplicationController
-		before_action :find_user
+		before_action :find_user 
 		before_action :authenticate_user!, :except => [:show]
+		
 		def show
 			@profile = @user.profile
 			@profiletopics = @user.topics.page(params[:page_topic]).per(10)
@@ -21,13 +22,12 @@ class ProfilesController < ApplicationController
 		end
 
 		def edit
-			
-				@profile = @user.profile
-			
+			@profile = @user.profile
 		end
 
 		def update
 			@profile = @user.profile
+
 			if @profile.update(profile_params)
 				redirect_to user_profile_path(@user)
 			else
@@ -36,9 +36,15 @@ class ProfilesController < ApplicationController
 			end	
 		end
 
+		def likes
+			@profile = @user.profile
+			@profilelike = @user.likes
+		end
+
 
 
 		private
+
 		def find_user
 			@user = User.find(params[:user_id])
 		end

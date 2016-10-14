@@ -4,7 +4,7 @@ class Topic < ApplicationRecord
 	has_many :comments
 	has_many :topic_categoryships
 	has_many :categories , :through => :topic_categoryships
-	has_many :likes 
+	has_many :likes , :dependent => :destroy
 	has_many :like_users , :through => :likes , :source => :user
 	
 

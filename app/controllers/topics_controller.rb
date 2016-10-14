@@ -62,6 +62,7 @@ class TopicsController < ApplicationController
 			@topic = Topic.find(params[:id])		
 		end
 
+		@like = current_user.likes.find_by(:topic_id => params[:id])
 
 		
 		if params[:id] && params[:comment_id]
@@ -101,14 +102,44 @@ class TopicsController < ApplicationController
 
 	def destroy
 		@topic.destroy
-
-		redirect_to topics_path
+		respond_to do |format|
+			# format.html{
+			# 	redirect_to topics_path		
+			# }
+			format.js
+		end	
 	end
 
 	def about
 		@topics = Topic.all
 		@user = current_user
 		@comments = Comment.all
+	end
+
+	def like
+		@like = current_user.likes.build(:topic_id => params[:topic_id])
+		if @like.save
+			flash[:notice] = "#{current_user.short_name} likes this topic"	
+		else
+			flash[:alert] = "Failed to like"
+		end	
+		respond_to do |format|
+			format.js
+		end	
+	end
+
+	def unlike
+		@like = current_user.likes.find_by_topic_id(params[:topic_id])
+		if @like.destroy
+			flash[:notice] = "#{current_user.short_name} does not likes this topic"
+		else
+			flash[:alert] = "Failed to unlike"
+		end	
+		@like = nil
+		respond_to do |format|
+			format.js
+		end	
+		
 	end
 
 
