@@ -84,7 +84,7 @@ class TopicsController < ApplicationController
 		@topic = current_user.topics.new(topic_params)
 		@topics = Topic.page(params[:page]).per(5)
 		if @topic.save
-			UserMailer.notify_new_topic(current_user, @topic).deliver_now!
+			# UserMailer.notify_new_topic(current_user, @topic).deliver_now!
 		   redirect_to topics_path
 		else 
 		   render :action => :index
