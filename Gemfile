@@ -38,7 +38,12 @@ gem 'jbuilder', '~> 2.5'
 
 gem 'devise'
 
-gem "paperclip", "~> 5.0.0"
+
+gem "paperclip", "~> 5.0.0" #upload file app
+
+gem 'ransack' #poor guy search
+
+gem 'omniauth-facebook' #facebook API
 
 gem 'pg', group: :production
 gem 'rails_12factor', group: :production

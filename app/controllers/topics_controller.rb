@@ -14,7 +14,9 @@ class TopicsController < ApplicationController
 		else
 			@topics = Topic.all
 		end
-		
+
+		@topics = @topics.page(params[:page]).per(5)
+
 		if params[:order]
 			sort_by = (params[:order] == 'title') ? 'title' : 'id'
 			@topics = @topics.order(sort_by)
@@ -23,11 +25,14 @@ class TopicsController < ApplicationController
 			@topics = @topics.includes(:comments).order("comments.created_at DESC")
 
 		elsif params[:comment_numbers]#照回覆數進行排序
-			@topics = @topics.order("comments_count DESC")	
+			@topics = @topics.order("comments_count DESC")
+	
+		elsif params[:views_number] 
+			@topcis = @topics.order("views DESC")
 		end	
-
+		
 		if params[:default]
-			@topics = @topics.all
+			@topics = @topics.order("created_at DESC")
 		elsif params[:infernal]
 			@category = Category.find(params[:infernal])
 			@topics = @category.topics
@@ -44,8 +49,8 @@ class TopicsController < ApplicationController
 			@category = Category.find(params[:elder])
 			@topics = @category.topics					
 		end	
-		@topics = @topics.page(params[:page]).per(5).padding(3)
-
+		
+		
 		
 
 		if params[:id]
@@ -53,15 +58,14 @@ class TopicsController < ApplicationController
 		else
 			@topic = Topic.new
 		end	
+		
 	end
 
-	def show
-		if current_user
-			@topic = current_user.topics.find(params[:id])
-		else
-			@topic = Topic.find(params[:id])		
-		end
-
+	def show		
+		@topic = Topic.find(params[:id])		
+		@topic.views += 1
+		@topic.save
+		@users = @topic.like_users
 		@like = current_user.likes.find_by(:topic_id => params[:id])
 
 		
@@ -80,6 +84,7 @@ class TopicsController < ApplicationController
 		@topic = current_user.topics.new(topic_params)
 		@topics = Topic.page(params[:page]).per(5)
 		if @topic.save
+			UserMailer.notify_new_topic(current_user, @topic).deliver_now!
 		   redirect_to topics_path
 		else 
 		   render :action => :index

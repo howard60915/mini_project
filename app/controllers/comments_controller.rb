@@ -1,4 +1,6 @@
 class CommentsController < ApplicationController
+	
+	before_action :authenticate_user!
 	before_action :set_comment
 	
 
@@ -13,6 +15,8 @@ class CommentsController < ApplicationController
 			flash[:alert] = "failed to create"
 			redirect_to topic_path(params[:topic_id])
 		end
+		@topic.views -= 1
+		@topic.save
 	end
 
 	def edit
@@ -27,7 +31,9 @@ class CommentsController < ApplicationController
 		else
 			flash[:alert] = "編輯失敗"
 			redirect_to topic_path(params[:topic_id])
-		end	
+		end
+		@topic.views -= 1
+		@topic.save	
 	end
 
 
@@ -37,6 +43,8 @@ class CommentsController < ApplicationController
 		if @comment.destroy
 		   flash[:alert] = "Comment Deleted"
 		   redirect_to topic_path(@topic)
+		   @topic.views -= 1
+		   @topic.save
 		else
 			flash[:alert] = "Delete Failed "
 			render topic_path(@topic)
