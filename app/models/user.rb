@@ -10,6 +10,10 @@ class User < ApplicationRecord
   has_many :likes , :dependent => :destroy
   has_many :like_topics , :through => :likes , :source => :topic
 
+  include Gravtastic
+  gravtastic :size => 30, :default => 'retro'
+  
+
   def short_name
 	self.email.split("@").first        	
   end

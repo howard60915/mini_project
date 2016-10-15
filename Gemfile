@@ -45,6 +45,8 @@ gem 'ransack' #poor guy search
 
 gem 'omniauth-facebook' #facebook API
 
+gem 'gravtastic' #@user.email image 
+
 gem 'pg', group: :production
 gem 'rails_12factor', group: :production
 

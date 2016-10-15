@@ -42,8 +42,9 @@
 				    <%= link_to('登入', new_session_path(:user)) %>
 				     <%= link_to "Facebook Log In", user_facebook_omniauth_authorize_path, :class => "btn btn-primary", :style => "font-size: 5px" %>
 			    <% end %>
-				
-
+			    <% if current_user %>
+				<%= image_tag current_user.gravatar_url%>
+				<% end %>
 				<%= yield %>
 			</div>
 		</div>
