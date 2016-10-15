@@ -40,6 +40,8 @@
 				<td><%= link_to "最新回覆時間" ,topics_path(:comment_time => "comments_at")%></td>
 				<td><%= link_to "瀏覽人數" , topics_path(:views_number => "viewers" )%></td>
 				<td></td>
+				<td>誰回覆您</td>
+				
 				
 				<% @topics.each do |topic| %>
 				<tr id="topic-<%= topic.id%>">
@@ -54,13 +56,20 @@
 						<%= topic.comments.first.created_at %>
 					<%else%>
 						<%= topic.comments.last.try(:created_at)%>
-					<% end %>
+					
 				</td>
 				<td><%= topic.views %></td>
 				<td>
 					<%#= link_to "show" , topic_path(topic) , :class => "btn btn-success"%>
 					<%= link_to "edit" , topics_path(:id => topic.id) , :class => "btn btn-primary"%>
 					<%= link_to "Delete" , topic_path(topic) , :method => :delete ,:remote => true , :class => "btn btn-danger"%>
+				</td>
+				<% end %>
+				<td>
+
+				<%= topic.comments.last.user.short_name %>
+					
+					
 				</td>
 				<!-- <td>
 					<%#= link_to "like", like_topic_path(@topic) , :class => "btn btn-primary", :style => "font-size: 8px" %>
