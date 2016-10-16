@@ -1,9 +1,10 @@
 <h1><span style="font-size: 50px"><%= @topic.title%></span></h1>
-
-<span style="font-size: 35px">content</span>
+<%= @topic.status %>
 <div id="like">
 	<%= (render :partial => 'like')   %>	
 </div>
+<span style="font-size: 35px">content</span>
+
 <br \>
 <table class="table table-striped table-hover">
 	<thead><span style="font-size: 20px"><%= @topic.content %></span></thead>
@@ -14,14 +15,22 @@
 			<td></td>
 			
 		</tr>
-
 		<% @topic.comments.each do |c| %>
-		<tr>
-			<td><%= c.content %></td>
-			<td><%= link_to "Edit" , topic_path(:id => @topic.id , :comment_id => c.id), :class => "btn btn-primary" %></td>
-			<td><%= link_to "Delete" , topic_comment_path(@topic,c.id), :method => "delete", :class => "btn btn-danger" %></td>
-			<td><%= c.user.short_name %></td>
-		</tr>
+			<% if c.status == 'published' %>
+				<tr>
+					<td><%= c.content %></td>
+					<td><%= link_to "Edit" , topic_path(:id => @topic.id , :comment_id => c.id), :class => "btn btn-primary" %></td>
+					<td><%= link_to "Delete" , topic_comment_path(@topic,c.id), :method => "delete", :class => "btn btn-danger" %></td>
+					<td><%= c.user.short_name %></td>
+				</tr>
+			<% elsif c.status == 'draft' && current_user == c.user %>
+				<tr>
+					<td><p style="color: #f0f"><%= c.content %></p></td>
+					<td><%= link_to "Edit" , topic_path(:id => @topic.id , :comment_id => c.id), :class => "btn btn-primary" %></td>
+					<td><%= link_to "Delete" , topic_comment_path(@topic,c.id), :method => "delete", :class => "btn btn-danger" %></td>
+					<td><%= c.user.short_name %></td>
+				</tr>
+			<% end %>
 		<% end %>
 		
 </table>
@@ -35,7 +44,13 @@
 
 <%= form_for [@topic, @comment] do |f|%> <!-- rails 會自動幫我們判別是經由create還是update -->
 	<%= f.label :content ,"Comment"%>
-	<%= f.text_area :content ,:class => "form-control"%>	
+	<%= f.text_area :content ,:class => "form-control"%>
+	
+	<div class="form-group">
+	<%= f.label :status, "Status" %>
+    <%= f.radio_button :status, "published"%>Published
+    <%= f.radio_button :status, "draft"%>Draft
+	</div>	
 
 	<%= f.submit "confirm" , :class => "btn btn-success"%>
 
