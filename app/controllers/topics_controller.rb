@@ -1,7 +1,7 @@
 class TopicsController < ApplicationController
 	
 	before_action :authenticate_user!, except: [:index,:show]
-	before_action :set_topic , :only => [:edit , :destroy]
+	before_action :set_topic , :only => [:edit , :update, :destroy]
 
 	
 	def index
@@ -12,7 +12,7 @@ class TopicsController < ApplicationController
 		if params[:keyword]
 			@topics = Topic.where( [ "title like ?", "%#{params[:keyword]}%" ] )
 		else
-			@topics = Topic.all
+			@topics = Topic.order('id DESC')
 		end
 
 		@topics = @topics.page(params[:page]).per(5)
@@ -96,11 +96,12 @@ class TopicsController < ApplicationController
 
 	def update
 		
-		@topic = current_user.topics.find(params[:id])
+		@topic = Topic.find(params[:id])
 
-		if @topic.update(topic_params)
+		if @topic.update(topic_params)&&(current_user == @topic.user)
 			redirect_to topic_path(@topic)
 		else
+			flash[:alert] = "Failed to Update"
 			render :action => :index
 		end		
 	end
@@ -156,7 +157,7 @@ class TopicsController < ApplicationController
 	end
 
 	def topic_params
-		params.require(:topic).permit(:title, :content ,:user_id, :comment_id, :category_ids =>[])
+		params.require(:topic).permit(:title, :content, :status ,:user_id, :comment_id, :category_ids =>[])
 	end
 
 end
