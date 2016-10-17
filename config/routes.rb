@@ -5,9 +5,13 @@ Rails.application.routes.draw do
 
   resources :topics do 
   	resources :comments, :controller => :comments, only: [:new, :create, :edit, :update, :destroy]
+    resources :subscribes, :controller => :subscribes, only: [:create, :destroy]  
+    # /topics/:topic_id/subscribes
+    
       member do 
         post :like
         post :unlike
+
       end  
   end
   resources :users do 	

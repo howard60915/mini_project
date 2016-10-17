@@ -9,6 +9,8 @@ class User < ApplicationRecord
   has_one :profile
   has_many :likes , :dependent => :destroy
   has_many :like_topics , :through => :likes , :source => :topic
+  has_many :subscribes , :dependent => :destroy
+  has_many :subscribe_topics , :through => :subscribes , :source => :topic
 
   include Gravtastic
   gravtastic :size => 30, :default => 'retro'

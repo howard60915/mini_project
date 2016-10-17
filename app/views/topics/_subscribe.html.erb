@@ -1,0 +1,5 @@
+<% if current_user.subscribes.find_by_topic_id(@topic.id) %>  
+		<%= link_to "Unsubscribe", topic_subscribe_path(:topic_id => @topic, :id => current_user.subscribes.find_by_topic_id(@topic)) ,:remote => true ,:class => "btn btn-danger", :method => :delete, :style => "font-size: 8px" %>
+<% else %>
+		<%= link_to "Subscribe", topic_subscribes_path(:topic_id => @topic) ,:remote => true ,:class => "btn btn-primary", :method => :post, :style => "font-size: 8px" %>
+<% end %>

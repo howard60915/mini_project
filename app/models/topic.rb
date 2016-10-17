@@ -6,7 +6,8 @@ class Topic < ApplicationRecord
 	has_many :categories , :through => :topic_categoryships
 	has_many :likes , :dependent => :destroy
 	has_many :like_users , :through => :likes , :source => :user
-	
+	has_many :subscribes , :dependent => :destroy
+  	has_many :subscribe_users , :through => :subscribes , :source => :user
 
 	delegate :email, :to => :user , :prefix => true, :allow_nil => true
 	delegate :content, :to => :comment , :prefix => true, :allow_nil => true
