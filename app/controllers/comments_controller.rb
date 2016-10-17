@@ -32,6 +32,9 @@ class CommentsController < ApplicationController
 			flash[:alert] = "編輯失敗"
 			redirect_to topic_path(params[:topic_id])
 		end
+		if params[:remove_comment_file] == "1"
+			@comment.logo = nil
+		end	
 		@topic.views -= 1
 		@topic.save	
 	end
@@ -66,6 +69,6 @@ class CommentsController < ApplicationController
 	end
 
 	def comment_params
-		params.require(:comment).permit(:content, :status , :topic_id, :user_id,:id)
+		params.require(:comment).permit(:content, :status ,:avatar , :topic_id, :user_id,:id)
 	end
 end
