@@ -95,8 +95,12 @@ class TopicsController < ApplicationController
 	end
 
 	def update
-		
+		@topics = Topic.all.order("id DESC").page(params[:page]).per(5)
 		@topic = Topic.find(params[:id])
+
+		if params[:remove_upload_file] == "1"
+			@topic.logo = nil
+		end	
 
 		if @topic.update(topic_params)&&(current_user == @topic.user)
 			redirect_to topic_path(@topic)
@@ -157,7 +161,7 @@ class TopicsController < ApplicationController
 	end
 
 	def topic_params
-		params.require(:topic).permit(:title, :content, :status ,:user_id, :comment_id, :category_ids =>[])
+		params.require(:topic).permit(:title, :content, :status, :logo ,:user_id, :comment_id, :category_ids =>[])
 	end
 
 end
