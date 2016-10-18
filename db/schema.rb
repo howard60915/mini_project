@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161017171950) do
+ActiveRecord::Schema.define(version: 20161018145845) do
 
   create_table "categories", force: :cascade do |t|
     t.datetime "created_at", null: false
@@ -86,6 +86,8 @@ ActiveRecord::Schema.define(version: 20161017171950) do
     t.string   "logo_content_type"
     t.integer  "logo_file_size"
     t.datetime "logo_updated_at"
+    t.string   "tag"
+    t.index ["tag"], name: "index_topics_on_tag"
     t.index ["user_id"], name: "index_topics_on_user_id"
   end
 

@@ -11,6 +11,8 @@ class TopicsController < ApplicationController
 
 		if params[:keyword]
 			@topics = Topic.where( [ "title like ?", "%#{params[:keyword]}%" ] )
+		elsif params[:tagkey]
+			@topics = Topic.where(["tag like ?", "%#{params[:tagkey]}%"])
 		else
 			@topics = Topic.order('id DESC')
 		end
@@ -153,7 +155,7 @@ class TopicsController < ApplicationController
 	end
 
 	def topic_params
-		params.require(:topic).permit(:title, :content, :status, :logo ,:user_id, :comment_id, :category_ids =>[])
+		params.require(:topic).permit(:title, :content, :status, :logo, :tag ,:user_id, :comment_id, :category_ids =>[])
 	end
 
 end
