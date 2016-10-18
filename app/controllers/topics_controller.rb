@@ -1,7 +1,7 @@
 class TopicsController < ApplicationController
 	
 	before_action :authenticate_user!, except: [:index,:show]
-	before_action :set_topic , :only => [:edit , :update, :destroy]
+	before_action :set_topic , :only => [:edit , :update, :destroy, :like, :unlike]
 
 	
 	def index
@@ -128,11 +128,7 @@ class TopicsController < ApplicationController
 
 	def like
 		@like = current_user.likes.build(:topic_id => params[:topic_id])
-		if @like.save
-			flash[:notice] = "#{current_user.short_name} likes this topic"	
-		else
-			flash[:alert] = "Failed to like"
-		end	
+		@like.save
 		respond_to do |format|
 			format.js
 		end	
@@ -140,11 +136,7 @@ class TopicsController < ApplicationController
 
 	def unlike
 		@like = current_user.likes.find_by_topic_id(params[:topic_id])
-		if @like.destroy
-			flash[:notice] = "#{current_user.short_name} does not likes this topic"
-		else
-			flash[:alert] = "Failed to unlike"
-		end	
+	    @like.destroy
 		@like = nil
 		respond_to do |format|
 			format.js

@@ -1,8 +1,12 @@
 <h1><span style="font-size: 50px"><%= @topic.title%></span></h1>
 <%= @topic.status %>
+<div id="like-number">
+	<%= @topic.like_users.count %>  likes
+</div>
 <div id="like">
 	<%= (render :partial => 'like')   %>	
 </div>
+
 <div id="subscribe">
 	<%= (render :partial => 'subscribe')   %>
 </div>
