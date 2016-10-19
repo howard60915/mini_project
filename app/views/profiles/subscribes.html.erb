@@ -6,22 +6,22 @@
 <table class="table table-striped">
 	
 
-		<th><span style="font-size: 35px"><%= @profile.try(:nickname) %> 喜歡的文章</span></th>
+		<th><span style="font-size: 35px"><%= @profile.try(:nickname) %> 的收藏</span></th>
 		<td><span style="font-size: 20px">瀏覽人數</span></td>
 		<tbody>
 	<tr>
 		<%= link_to "編輯個人資料" , edit_user_profile_path(@user) , :class => "btn btn-info" %>
 		<%= link_to "個人資料" , user_profile_path(@user) , :class => "btn btn-primary" %>
-		<%= link_to "#{@user.short_name} 的收藏" , subscribes_user_profile_path(@user) , :class => "btn btn-success" %>
+		<%= link_to "#{@user.short_name} 喜歡的文章" , likes_user_profile_path(:user_id => @user.id) , :class => "btn btn-primary" %>	
 	</tr>
 		
-	<tr><% @user.like_topics.each do |liketopic| %></tr>
-		<td><%=  liketopic.title %></td>
-		<td><%=  liketopic.views %></td>
+	<tr><% @user.subscribe_topics.each do |s| %></tr>
+		<td><%=  s.title %></td>
+		<td><%=  s.views %></td>
 		<% end %>	
 		
 	</tbody>
 		
 </table>
-<div><%= paginate @profilelike , :theme => 'twitter-bootstrap-3', :param_name => "page_like" %></div> 
+<div><%#= paginate @profilelike , :theme => 'twitter-bootstrap-3', :param_name => "page_like" %></div> 
 <%= link_to "Back to Topics" ,topics_path , :class => "btn btn-info"%>

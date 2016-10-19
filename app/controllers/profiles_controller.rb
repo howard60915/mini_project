@@ -38,7 +38,12 @@ class ProfilesController < ApplicationController
 
 		def likes
 			@profile = @user.profile
-			@profilelike = @user.likes
+			@profilelike = @user.like_topics.page(params[:page_like]).per(10)
+		end
+
+		def subscribes
+			@profile = @user.profile
+			
 		end
 
 

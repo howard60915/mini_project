@@ -4,19 +4,24 @@
 
 
 <table class="table table-striped">
-	
-
 		<th><span style="font-size: 35px">Nickname :     <%= @profile.try(:nickname) %></span></th>
+		<td></td>
+		<td></td>
 		<tbody>
 	<tr></tr>
 		<td><span style="font-size: 25px">Biography</span></td>
+		<td></td>
+		<td></td>
 	<tr></tr>
 		<td><%= @profile.try(:bio) %></td>
+		<td></td>
+		<td></td>
 	<tr>
 		<%= link_to "編輯個人資料" , edit_user_profile_path(@user) , :class => "btn btn-info" %>
-		<%= link_to "#{@user.short_name} 喜歡的文章" , likes_user_profile_path(:user_id => @user.id) , :class => "btn btn-primary" %>		
+		<%= link_to "#{@user.short_name} 喜歡的文章" , likes_user_profile_path(:user_id => @user.id) , :class => "btn btn-primary" %>	
+		<%= link_to "#{@user.short_name} 的收藏" , subscribes_user_profile_path(@user) , :class => "btn btn-success" %>
 	</tr>
-		<td><span style="font-size: 20px "><%= @profile.try(:nickname) %> 的文章</span></td>
+		<td><span style="font-size: 25px "><%= @profile.try(:nickname) %> 的文章</span></td>
 		<td>回覆數量</td>
 	<tr><% @profiletopics.each do |t|%></tr>
 		<td><%= t.title %></td>
@@ -33,7 +38,7 @@
 
 <br \> 	
 <table class="table table-striped">
-	<th><%= @profiie.try(:nickname) %> 的回覆文章</th>
+	<th><span style="font-size: 25px"><%= @profile.try(:nickname) %> 回覆的文章</th>
 	<td>回覆文章</td>
 	<tr><% @profilecomment.each do |c| %></tr>
 	<td><%= c.content %></td>

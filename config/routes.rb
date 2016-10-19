@@ -18,6 +18,7 @@ Rails.application.routes.draw do
   	resource :profile , :controller => :profiles do 
       collection do 
         get :likes
+        get :subscribes
       end
     end
   end
