@@ -7,14 +7,12 @@ class CommentsController < ApplicationController
 	def create
 		@comment = @topic.comments.build(comment_params)
 		@comment.user_id = current_user.id
-		if @comment.save
-			flash[:notice] = "success to create"
-			redirect_to topic_path(params[:topic_id])
-		else
-			@comment = @topic.comments.build
-			flash[:alert] = "failed to create"
-			redirect_to topic_path(params[:topic_id])
-		end
+		@comment.save
+
+		respond_to do |format|
+			format.html { redirect_to topic_path(params[:topic_id]) }
+			format.js
+		end	
 		@topic.views -= 1
 		@topic.save
 	end
@@ -43,15 +41,15 @@ class CommentsController < ApplicationController
 	def destroy
 		@user = current_user
 		@comment = @topic.comments.find(params[:id])
-		if @comment.destroy
-		   flash[:alert] = "Comment Deleted"
-		   redirect_to topic_path(@topic)
+		@comment.destroy
+		respond_to do |format|
+			format.html {redirect_to topic_path(@topic)}
+			format.js
+		end 	
+		   
 		   @topic.views -= 1
 		   @topic.save
-		else
-			flash[:alert] = "Delete Failed "
-			render topic_path(@topic)
-		end	
+
 	end	
 
 

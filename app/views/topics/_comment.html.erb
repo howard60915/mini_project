@@ -1,0 +1,33 @@
+<tr>
+	<td><span style="font-size: 20px">Comment :</span></td>
+	<td></td>
+	<td ><span style="text-align: left">Poster</span></td>
+	<td></td>
+	<td></td>
+	<td></td>
+
+</tr>
+<% @topic.comments.each do |c| %>
+<tr id="comment-<%= c.id %>">
+
+	<% if c.status == 'published' %>
+		<td><%= c.content %></td>
+		<td><%= image_tag c.avatar.url(:thumb)%></td>
+		<td><%= c.user.short_name %></td>
+		<td><%= link_to "Edit" , topic_path(:id => @topic.id , :comment_id => c.id), :class => "btn btn-primary" %></td>
+		<td><%= link_to "Delete" , topic_comment_path(@topic,c.id), :method => "delete", :remote => true , :class => "btn btn-danger" %></td>
+		<td><%= c.user.short_name %></td>
+
+	<% elsif c.status == 'draft' && current_user == c.user %>
+		<td><p style="color: #f0f"><%= c.content %></p></td>
+		<td><%= link_to "Edit" , topic_path(:id => @topic.id , :comment_id => c.id), :class => "btn btn-primary" %></td>
+		<td><%= link_to "Delete" , topic_comment_path(@topic,c.id), :method => "delete", :remote => true, :class => "btn btn-danger" %></td>
+		<td><%= c.user.short_name %></td>
+
+	<% end %>
+
+		
+</tr>
+<% end %>
+
+
