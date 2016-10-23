@@ -2,14 +2,14 @@
 <p style="font-size: 10"><%= @topic.tag %></p>
 
 <div id="like-number">
-	<%= @topic.like_users.count %>  likes
+	<%= @topic.likes.count %>  likes
 </div>
 <div id="like">
-	<%= (render :partial => 'like')   %>	
+	<%= (render :partial => 'like', :locals => { :topic => @topic }) %>	
 </div>
 
 <div id="subscribe">
-	<%= (render :partial => 'subscribe')   %>
+	<%= (render :partial => 'subscribe', :locals => { :topic => @topic}) %>
 </div>
 
 <div>

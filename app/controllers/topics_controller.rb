@@ -129,7 +129,7 @@ class TopicsController < ApplicationController
 	end
 
 	def like
-		@like = current_user.likes.build(:topic_id => params[:topic_id])
+		@like = current_user.likes.build(:topic_id => params[:id])
 		@like.save
 		respond_to do |format|
 			format.js
@@ -137,7 +137,7 @@ class TopicsController < ApplicationController
 	end
 
 	def unlike
-		@like = current_user.likes.find_by_topic_id(params[:topic_id])
+		@like = current_user.likes.find_by_topic_id(params[:id])
 	    @like.destroy
 		@like = nil
 		respond_to do |format|

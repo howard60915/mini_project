@@ -1,2 +1,4 @@
-$('#like-number').html('<%= @topic.like_users.count %>  likes')
-$('#like').html('<%= j render(:partial => "like") %>')
+$('#like-number').html('<%= @topic.likes.count %>  likes')
+$('#like').html('<%= j render(:partial => "like", :locals => { :topic => @topic}) %>')
+$('#index-like-number').html('<%= @topic.likes.count %>  likes')
+$('#index-like').html('<%= j render(:partial => "like", :locals => { :topic => @topic}) %>')

@@ -5,8 +5,8 @@ class SubscribesController < ApplicationController
 	def create
 		@subscribe = current_user.subscribes.build(:topic_id => params[:topic_id])
 		@subscribe.save
-		
 		respond_to do |format|
+			format.html { redirect_to topic_path(@topic) }
 			format.js
 		end	
 
@@ -17,6 +17,7 @@ class SubscribesController < ApplicationController
 		@subscribe.destroy
 		@subscribe = nil
 		respond_to do |format|
+			format.html { redirect_to topic_path(@topic) }
 			format.js
 		end
 	end

@@ -1,1 +1,2 @@
+$('#comment-list').children().remove();
 $('#comment-list').append('<%=j render(:partial => "topics/comment" , :locals => { :c => @comment}) %>');

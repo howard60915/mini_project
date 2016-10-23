@@ -1,6 +1,6 @@
 <% if @like %>  
-		<%= link_to "unlike", unlike_topic_path(:topic_id => params[:id]) , :remote => true, :class => "btn btn-danger", :method => :post, :style => "font-size: 8px" %>
+		<%= link_to "unlike", unlike_topic_path(:id => topic.id) , :remote => true, :class => "btn btn-danger", :method => :post, :style => "font-size: 8px" %>
 <% else %>
-		<%= link_to "like", like_topic_path(:topic_id => params[:id]) , :remote => true, :class => "btn btn-primary", :method => :post, :style => "font-size: 8px" %>
+		<%= link_to "like", like_topic_path(:id => topic.id) , :remote => true, :class => "btn btn-primary", :method => :post, :style => "font-size: 8px" %>
 <% end %>
 <!--// 可以直接使用Button_to(超級小的form，只有一個按鈕的form)，其預設的方法就是post-->

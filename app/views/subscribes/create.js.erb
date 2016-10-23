@@ -1,1 +1,5 @@
-$('#subscribe').html('<%= j render(:partial => "topics/subscribe") %>')
+$('#subscribe').html('<%= j render(:partial => "topics/subscribe", :locals => {:topic => @topic}) %>')
+
+$('#index-subscribe').html('<%= j render(:partial => "topics/subscribe", :locals => {:topic => @topic}) %>')
+
+

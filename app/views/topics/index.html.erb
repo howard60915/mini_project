@@ -50,7 +50,12 @@
 					<% if topic.status == "published" %> 	
 						<tr id="topic-<%= topic.id%>">
 
-						<td><span style="font-size: 20px"><%= link_to topic.title, topic_path(topic) %></span></td>	
+						<td>
+							<span id="index-subscribe">
+								<%= render :partial => "subscribe", :locals => { :topic => topic} %>
+							</span>	
+							<span style="font-size: 20px"><%= link_to topic.title, topic_path(topic) %></span>
+						</td>	
 						<td><%= topic.user.try(:short_name) %></td>				
 						<td><%= topic.comments_count %></td>
 						<td>
@@ -64,6 +69,8 @@
 							<%#= link_to "show" , topic_path(topic) , :class => "btn btn-success"%>
 							<%= link_to "edit" , topics_path(:id => topic.id) , :class => "btn btn-primary"%>
 							<%= link_to "Delete" , topic_path(topic) , :method => :delete ,:remote => true , :class => "btn btn-danger"%>
+							<span id="index-like"><%= render :partial => "like", :locals => { :topic => topic } %></span>
+							<span id="index-like-number"><%= topic.likes.count %></span> likes
 						</td>
 						<% end %>
 						<td>
