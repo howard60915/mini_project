@@ -67,9 +67,10 @@
 						</td>
 						<td><%= topic.views %></td>
 						<td>
-
+							<% if current_user == topic.user %>
 							<%= link_to "edit" , topics_path(:id => topic.id) , :class => "btn btn-primary"%>
 							<%= link_to "Delete" , topic_path(topic) , :method => :delete ,:remote => true , :class => "btn btn-danger"%>
+							<% end %>
 							<span id="index-like-<%= topic.id %>"><%= render :partial => "like", :locals => { :topic => topic } %></span>
 							<span id="index-like-number-<%= topic.id %>"><%= topic.likes.count %> likes</span>
 						</td>

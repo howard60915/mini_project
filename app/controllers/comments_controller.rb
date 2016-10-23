@@ -23,7 +23,7 @@ class CommentsController < ApplicationController
 
 	def update
 		@comment = @topic.comments.find(params[:id])
-		if @comment.update(comment_params)
+		if current_user == @comment.user &&@comment.update(comment_params)
 			flash[:notice] = "編輯成功"
 			redirect_to topic_path(params[:topic_id])
 		else
@@ -39,9 +39,10 @@ class CommentsController < ApplicationController
 
 
 	def destroy
-		@user = current_user
 		@comment = @topic.comments.find(params[:id])
-		@comment.destroy
+		if current_user == @comment.user
+			@comment.destroy
+		end	
 		respond_to do |format|
 			format.html {redirect_to topic_path(@topic)}
 			format.js

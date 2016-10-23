@@ -22,11 +22,11 @@ class ProfilesController < ApplicationController
 		end
 
 		def edit
-			@profile = @user.profile
+			@profile = current_user.profile
 		end
 
 		def update
-			@profile = @user.profile
+			@profile = current_user.profile
 
 			if @profile.update(profile_params)
 				redirect_to user_profile_path(@user)

@@ -14,8 +14,13 @@
 		<td><%= c.content %></td>
 		<td><%= image_tag c.avatar.url(:thumb)%></td>
 		<td></td>
-		<td><%= link_to "Edit" , topic_path(:id => @topic.id , :comment_id => c.id), :class => "btn btn-primary" %>
-		    <%= link_to "Delete" , topic_comment_path(@topic,c.id), :method => "delete", :remote => true , :class => "btn btn-danger" %></td>
+		<td>
+			<% if current_user == c.user %>	
+				<%= link_to "Edit" , topic_path(:id => @topic.id , :comment_id => c.id), :class => "btn btn-primary" %>
+			    <%= link_to "Delete" , topic_comment_path(@topic,c.id), :method => "delete", :remote => true , :class => "btn btn-danger" %>
+		    <% end %>	
+	    </td>
+		<td><%= link_to c.user.short_name , user_profile_path(c.user.id)  %></td>
 
 	<% elsif c.status == 'draft' && current_user == c.user %>
 		<td><p style="color: #f0f"><%= c.content %></p></td>

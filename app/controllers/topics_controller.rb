@@ -6,7 +6,7 @@ class TopicsController < ApplicationController
 	
 	def index
 		
-		@user = current_user
+
 
 
 		if params[:keyword]
@@ -113,11 +113,13 @@ class TopicsController < ApplicationController
 	end
 
 	def destroy
-		@topic.destroy
+		if current_user == @topic.user
+			@topic.destroy
+		end	
 		respond_to do |format|
-			# format.html{
-			# 	redirect_to topics_path		
-			# }
+			format.html{
+				redirect_to topics_path		
+			 }
 			format.js
 		end	
 	end
