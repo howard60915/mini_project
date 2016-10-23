@@ -4,8 +4,8 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable,
          :omniauthable, :omniauth_providers => [:facebook]
-  has_many :topics
-  has_many :comments
+  has_many :topics, :dependent => :destroy
+  has_many :comments, :dependent => :destroy
   has_one :profile
   has_many :likes , :dependent => :destroy
   has_many :like_topics , :through => :likes , :source => :topic

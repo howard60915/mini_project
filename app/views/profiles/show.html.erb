@@ -43,8 +43,12 @@
 	<th><span style="font-size: 25px"><%= @profile.try(:nickname) %> 回覆的文章</th>
 	<td>回覆文章</td>
 	<tr><% @profilecomment.each do |c| %></tr>
-	<td><%= c.content %></td>
-	<td><%= c.topic.title %></td>		
+		<% if c.topic != nil %>
+			<td><%= c.content %></td>
+			<td><%= c.topic.title %></td>
+		<% else %>
+				
+		<% end %>
 	<% end %>
 
 

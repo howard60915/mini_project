@@ -17,8 +17,6 @@ class TopicsController < ApplicationController
 			@topics = Topic.order('id DESC')
 		end
 
-		@topics = @topics.page(params[:page]).per(5)
-
 		if params[:order]
 			sort_by = (params[:order] == 'title') ? 'title' : 'id'
 			@topics = @topics.order(sort_by)
@@ -52,7 +50,7 @@ class TopicsController < ApplicationController
 			@topics = @category.topics					
 		end	
 		
-		
+		@topics = @topics.includes(:user, :comments, :subscribes).page(params[:page]).per(5)
 		
 
 		if params[:id]
@@ -64,7 +62,7 @@ class TopicsController < ApplicationController
 	end
 
 	def show		
-		@topic = Topic.find(params[:id])		
+		@topic = Topic.includes(:comments).find(params[:id])		
 		@topic.views += 1
 		@topic.save
 		@users = @topic.like_users
@@ -72,7 +70,7 @@ class TopicsController < ApplicationController
 
 		
 		if params[:id] && params[:comment_id]
-			@comment = @topic.comments.find(params[:comment_id])
+			@comment = @topic.comments.includes(:user).find(params[:comment_id])
 		else
 			@comment = Comment.new
 		end	

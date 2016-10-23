@@ -5,7 +5,7 @@ class ProfilesController < ApplicationController
 		def show
 			@profile = @user.profile
 			@profiletopics = @user.topics.page(params[:page_topic]).per(10)
-			@profilecomment = @user.comments.page(params[:page_comment]).per(10)
+			@profilecomment = @user.comments.includes(:topic).page(params[:page_comment]).per(10)
 		end
 
 		def new
@@ -42,7 +42,9 @@ class ProfilesController < ApplicationController
 		end
 
 		def subscribes
+			@user = User.includes(:subscribes).find(params[:user_id])
 			@profile = @user.profile
+
 			
 		end
 
