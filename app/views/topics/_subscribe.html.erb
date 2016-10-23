@@ -1,8 +1,7 @@
-<% if current_user.subscribes.find_by_topic_id(topic.id) %>  
-		<%= link_to "", topic_subscribe_path(:topic_id => topic.id, :id => current_user.subscribes.find_by_topic_id(topic)) ,:class => "btn btn-danger btn-xs glyphicon glyphicon-star-empty aria-hidden = true",:remote => true, :method => :delete, :style => "font-size: 5px" %>
-<% else %>
-		<%= link_to "", topic_subscribes_path(:topic_id => topic.id)  ,:class => "btn btn-primary btn-xs glyphicon glyphicon-star aria-hidden = true", :remote => true, :style => "font-size: 5px", :method => :post %>
+<% if current_user %>	
+	<% if current_user.subscribes.find_by_topic_id(topic.id) %>  
+			<%= link_to "", topic_subscribe_path(:topic_id => topic.id, :id => current_user.subscribes.find_by_topic_id(topic)) ,:class => "btn btn-danger btn-xs glyphicon glyphicon-star-empty aria-hidden = true",:remote => true, :method => :delete, :style => "font-size: 5px" %>		
+	<% else %>
+			<%= link_to "", topic_subscribes_path(:topic_id => topic.id)  ,:class => "btn btn-primary btn-xs glyphicon glyphicon-star aria-hidden = true", :remote => true, :style => "font-size: 5px", :method => :post %>
+	<% end %>
 <% end %>
-
-
-

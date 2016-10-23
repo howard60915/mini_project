@@ -1,5 +1,5 @@
 $('#subscribe').html('<%= j render(:partial => "topics/subscribe", :locals => {:topic => @topic}) %>')
 
-$('#index-subscribe').html('<%= j render(:partial => "topics/subscribe", :locals => {:topic => @topic}) %>')
+$('#index-subscribe-<%= @topic.id %>').html('<%= j render(:partial => "topics/subscribe", :locals => {:topic => @topic}) %>')
 
 

@@ -51,14 +51,15 @@
 						<tr id="topic-<%= topic.id%>">
 
 						<td>
-							<span id="index-subscribe">
+							<span id="index-subscribe-<%= topic.id %>">
 								<%= render :partial => "subscribe", :locals => { :topic => topic} %>
 							</span>	
 							<span style="font-size: 20px"><%= link_to topic.title, topic_path(topic) %></span>
 						</td>	
-						<td><%= topic.user.try(:short_name) %></td>				
+						<td><%= link_to topic.user.try(:short_name) ,user_profile_path(topic.user.id) %></td>				
 						<td><%= topic.comments_count %></td>
 						<td>
+						<!-- 時間排序後，第一筆及最後一筆資料會互換，所以在發佈時間排序時，須作調整 -->
 							<% if topic.comments.last && params[:comment_time] %>
 								<%= topic.comments.first.created_at %>
 							<%else%>
@@ -66,16 +67,16 @@
 						</td>
 						<td><%= topic.views %></td>
 						<td>
-							<%#= link_to "show" , topic_path(topic) , :class => "btn btn-success"%>
+
 							<%= link_to "edit" , topics_path(:id => topic.id) , :class => "btn btn-primary"%>
 							<%= link_to "Delete" , topic_path(topic) , :method => :delete ,:remote => true , :class => "btn btn-danger"%>
-							<span id="index-like"><%= render :partial => "like", :locals => { :topic => topic } %></span>
-							<span id="index-like-number"><%= topic.likes.count %></span> likes
+							<span id="index-like-<%= topic.id %>"><%= render :partial => "like", :locals => { :topic => topic } %></span>
+							<span id="index-like-number-<%= topic.id %>"><%= topic.likes.count %> likes</span>
 						</td>
 						<% end %>
 						<td>
 						<% if topic.comments.present? %>
-							<%= topic.comments.last.user.short_name %>
+							<%= link_to topic.comments.last.user.short_name, user_profile_path(topic.comments.last.user.id) %>
 						<% end %>	
 							
 						</td>
