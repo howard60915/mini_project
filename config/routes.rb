@@ -32,3 +32,4 @@ Rails.application.routes.draw do
   get '/about' => 'topics#about', :as => "about"
   root :to => 'topics#index'
 end
+  

@@ -155,7 +155,7 @@ class TopicsController < ApplicationController
 	end
 
 	def topic_params
-		params.require(:topic).permit(:title, :content, :status, :logo, :tag ,:user_id, :comment_id, :category_ids =>[])
+		params.require(:topic).permit(:title, :content, :status, :logo, :all_tags ,:user_id, :comment_id, :category_ids =>[])
 	end
 
 end

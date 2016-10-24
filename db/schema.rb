@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161018145845) do
+ActiveRecord::Schema.define(version: 20161024162021) do
 
   create_table "categories", force: :cascade do |t|
     t.datetime "created_at", null: false
@@ -64,6 +64,12 @@ ActiveRecord::Schema.define(version: 20161018145845) do
     t.index ["user_id"], name: "index_subscribes_on_user_id"
   end
 
+  create_table "tags", force: :cascade do |t|
+    t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "topic_categoryships", force: :cascade do |t|
     t.integer  "topic_id"
     t.integer  "category_id"
@@ -71,6 +77,15 @@ ActiveRecord::Schema.define(version: 20161018145845) do
     t.datetime "updated_at",  null: false
     t.index ["category_id"], name: "index_topic_categoryships_on_category_id"
     t.index ["topic_id"], name: "index_topic_categoryships_on_topic_id"
+  end
+
+  create_table "topic_tagships", force: :cascade do |t|
+    t.integer  "topic_id"
+    t.integer  "tag_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["tag_id"], name: "index_topic_tagships_on_tag_id"
+    t.index ["topic_id"], name: "index_topic_tagships_on_topic_id"
   end
 
   create_table "topics", force: :cascade do |t|
@@ -86,8 +101,6 @@ ActiveRecord::Schema.define(version: 20161018145845) do
     t.string   "logo_content_type"
     t.integer  "logo_file_size"
     t.datetime "logo_updated_at"
-    t.string   "tag"
-    t.index ["tag"], name: "index_topics_on_tag"
     t.index ["user_id"], name: "index_topics_on_user_id"
   end
 

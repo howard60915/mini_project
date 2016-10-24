@@ -28,10 +28,10 @@
 		<%= f.collection_check_boxes(:category_ids ,Category.all ,:id ,:name )%>
 </div>
 
-<div class="form-group">
-	<%= f.label :tag , "Tag"%>
-	<%= f.text_field :tag, size: 30 , :class => "form-control", :placeholder => "Make a tag" %>
-</div>
+<!-- <div class="form-group">
+	<%#= f.label :all_tags, "Tag" %>
+  <%#= f.text_field :all_tags, placeholder: "Tags separated with comma" %>
+</div> -->
 
 <div class="form-group">
 	<%= f.label :content , "Topic Content"%>
