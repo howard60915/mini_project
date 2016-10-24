@@ -28,9 +28,9 @@
   <%= text_field_tag "tagkey" ,nil ,:placeholder => "Search for tag" %>
   <%= submit_tag "Search" %>
 <% end %>
-
-
-
+<% @topics.each do |topic| %>
+	<%=raw tag_links(topic.all_tags)%>
+<% end %>
 
 <br \>
 <div class="container">

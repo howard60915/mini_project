@@ -11,8 +11,8 @@ class TopicsController < ApplicationController
 
 		if params[:keyword]
 			@topics = Topic.where( [ "title like ?", "%#{params[:keyword]}%" ] )
-		elsif params[:tagkey]
-			@topics = Topic.where(["tag like ?", "%#{params[:tagkey]}%"])
+		elsif params[:tag]
+  		@topics = Topic.tagged_with(params[:tag])	
 		else
 			@topics = Topic.order('id DESC')
 		end
@@ -26,7 +26,7 @@ class TopicsController < ApplicationController
 
 		elsif params[:comment_numbers]#照回覆數進行排序
 			@topics = @topics.order("comments_count DESC")
-	
+		
 		elsif params[:views_number] 
 			@topcis = @topics.order("views DESC")
 		end	

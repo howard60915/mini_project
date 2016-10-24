@@ -28,7 +28,7 @@ Rails.application.routes.draw do
 
   resource :profile , :controller => :profiles 
   
-
+  get 'tags/:tag', to: 'topics#index', as: "tag"
   get '/about' => 'topics#about', :as => "about"
   root :to => 'topics#index'
 end
