@@ -47,6 +47,10 @@ gem 'omniauth-facebook' #facebook API
 
 gem 'gravtastic' #@user.email image 
 
+gem 'friendly_id', '~> 5.0.0' #make url prettier
+
+
+
 gem 'pg', group: :production
 gem 'rails_12factor', group: :production
 

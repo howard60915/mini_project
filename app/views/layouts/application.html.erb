@@ -31,7 +31,7 @@
 				
 				<% if current_user %>
 					<% if current_user.profile %>
-						Hi ,<%= link_to current_user.email , user_profile_path(current_user) %>
+						Hi ,<%= link_to current_user.email , profile_path(nickname: current_user.profile.nickname, user_id: current_user.id) %>
 					<% else %>
 						Hi ,<%= link_to current_user.email , new_user_profile_path(current_user) %>
 					<% end  %>

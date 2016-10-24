@@ -1,9 +1,18 @@
 class User < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
+  # extend FriendlyId
+  # friendly_id :email
+  
+  def to_params
+    "#{id}-#{profile.nickname}"
+  end
+
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable,
          :omniauthable, :omniauth_providers => [:facebook]
+
+
   has_many :topics, :dependent => :destroy
   has_many :comments, :dependent => :destroy
   has_one :profile

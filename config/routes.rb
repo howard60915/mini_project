@@ -14,18 +14,21 @@ Rails.application.routes.draw do
 
       end  
   end
+  get '/profile/:nickname' => 'profiles#show'  , as: :profile
   resources :users do 	
-  	resource :profile , :controller => :profiles do 
+  	resource :profile , :controller => :profiles, :except => [:show]  do  
       collection do 
         get :likes
         get :subscribes
+
       end
     end
   end
 
 
-  resource :profile , :controller => :profiles
+  resource :profile , :controller => :profiles 
   
+
   get '/about' => 'topics#about', :as => "about"
   root :to => 'topics#index'
 end

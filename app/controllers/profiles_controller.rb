@@ -3,7 +3,8 @@ class ProfilesController < ApplicationController
 		before_action :authenticate_user!, :except => [:show]
 		
 		def show
-			@profile = @user.profile
+			# @profile = User.find_by_nickname(params[:nickname]).profile
+			@profile = Profile.find_by_nickname!(params[:nickname])
 			@profiletopics = @user.topics.page(params[:page_topic]).per(10)
 			@profilecomment = @user.comments.includes(:topic).page(params[:page_comment]).per(10)
 		end
