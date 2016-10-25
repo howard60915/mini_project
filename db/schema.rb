@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161024162021) do
+ActiveRecord::Schema.define(version: 20161025170132) do
 
   create_table "categories", force: :cascade do |t|
     t.datetime "created_at", null: false
@@ -44,6 +44,18 @@ ActiveRecord::Schema.define(version: 20161024162021) do
     t.datetime "updated_at", null: false
     t.index ["topic_id"], name: "index_likes_on_topic_id"
     t.index ["user_id"], name: "index_likes_on_user_id"
+  end
+
+  create_table "photos", force: :cascade do |t|
+    t.string   "image"
+    t.string   "image_file_name"
+    t.string   "image_content_type"
+    t.integer  "image_file_size"
+    t.datetime "image_updated_at"
+    t.integer  "topic_id"
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
+    t.index ["topic_id"], name: "index_photos_on_topic_id"
   end
 
   create_table "profiles", force: :cascade do |t|

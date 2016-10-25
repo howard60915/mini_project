@@ -13,7 +13,14 @@
 </div>
 
 <div>
-	<%= image_tag @topic.logo.url(:medium) %>	
+	<%= image_tag @topic.logo.url(:medium) %>
+	<% if @photos.exists? %>
+		<% @photos.each do |pic| %>
+			<%= image_tag (pic.image.url(:medium)) %>	
+		<% end %>	
+	<% else %>
+		無其他圖片	
+	<% end %>	
 </div>
 <span style="font-size: 35px">content</span>
 

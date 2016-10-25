@@ -10,6 +10,7 @@ class Topic < ApplicationRecord
   	has_many :subscribe_users , :through => :subscribes , :source => :user
   	has_many :topic_tagships, :dependent => :destroy
 	has_many :tags , :through => :topic_tagships
+	has_many :photos, :dependent => :destroy
 
 	delegate :email, :to => :user , :prefix => true, :allow_nil => true
 	delegate :content, :to => :comment , :prefix => true, :allow_nil => true
@@ -33,6 +34,7 @@ class Topic < ApplicationRecord
 	
 	def api_info
 		return {
+			:id => self.id,
 			title: self.title,
 			content: self.content
 		}

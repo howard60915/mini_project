@@ -67,6 +67,7 @@ class TopicsController < ApplicationController
 		@topic.save
 		@users = @topic.like_users
 		@like = current_user.likes.find_by(:topic_id => params[:id])
+		@photos = @topic.photos
 
 		
 		if params[:id] && params[:comment_id]
@@ -92,6 +93,7 @@ class TopicsController < ApplicationController
 	end
 
 	def edit
+		@photos = @topic.photos
 	end
 
 	def update
@@ -100,13 +102,18 @@ class TopicsController < ApplicationController
 
 		if params[:remove_upload_file] == "1"
 			@topic.logo = nil
+		elsif params[:remove_upload_photo] == "2"
+			@topic.photos.delete_all	
 		end	
 
 		if @topic.update(topic_params)&&(current_user == @topic.user)
-			redirect_to topic_path(@topic)
-		else
-			flash[:alert] = "Failed to Update"
-			render :action => :index
+				if params[:images]
+						params[:images].each {|image| @topic.photos.create(image: image) }	
+						redirect_to topic_path(@topic)
+				else
+					flash[:alert] = "Failed to Update"
+					render :action => :index
+				end
 		end		
 	end
 
@@ -155,7 +162,7 @@ class TopicsController < ApplicationController
 	end
 
 	def topic_params
-		params.require(:topic).permit(:title, :content, :status, :logo, :all_tags ,:user_id, :comment_id, :category_ids =>[])
+		params.require(:topic).permit(:title, :content, :status, :logo, :photos, :all_tags ,:user_id, :comment_id, :category_ids =>[])
 	end
 
 end
