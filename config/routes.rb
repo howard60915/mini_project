@@ -24,6 +24,15 @@ Rails.application.routes.draw do
       end
     end
   end
+  
+  namespace :api do
+   constraints(host: 'howard.localhost') do  
+    resources :topics , :only => [:index, :show]
+    root to:  "topics#index"
+   end 
+  end 
+
+
 
 
   resource :profile , :controller => :profiles 

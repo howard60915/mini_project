@@ -31,4 +31,12 @@ class Topic < ApplicationRecord
   	Tag.find_by_name!(name).topics
 	end
 	
+	def api_info
+		return {
+			title: self.title,
+			content: self.content
+		}
+	end
+
+
 end
