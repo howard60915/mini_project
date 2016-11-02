@@ -16,7 +16,7 @@ class Topic < ApplicationRecord
 	delegate :content, :to => :comment , :prefix => true, :allow_nil => true
 
 	has_attached_file :logo, styles: { medium: "300x300>", thumb: "100x100>" }, default_url: "/images/blank.png"
-  	validates_attachment_content_type :logo, content_type: /\Aimage\/.*\z/
+  validates_attachment_content_type :logo, content_type: /\Aimage\/.*\z/
 
   	def all_tags=(names)
 	  self.tags = names.split(",").map do |name|

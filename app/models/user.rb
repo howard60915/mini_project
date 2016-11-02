@@ -60,12 +60,12 @@ class User < ApplicationRecord
      return user
   end
 
-  # def api_info
-  #   return {
-  #     :id => self.id,
-  #     :email => self.email
-  #   }
-  #end
+  def api_info
+    return {
+      :id => self.id,
+      :email => self.email
+    }
+  end
 
          
 end
