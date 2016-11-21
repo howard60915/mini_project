@@ -14,7 +14,7 @@ class TopicsController < ApplicationController
 		elsif params[:tag]
   		@topics = Topic.tagged_with(params[:tag])	
 		else
-			@topics = Topic.order('id DESC')
+			@topics = Topic.all
 		end
 
 		if params[:order]
@@ -49,7 +49,8 @@ class TopicsController < ApplicationController
 			@category = Category.find(params[:elder])
 			@topics = @category.topics					
 		end	
-		
+		# byebug
+
 		@topics = @topics.includes(:user, :comments, :subscribes).page(params[:page]).per(5)
 		
 
